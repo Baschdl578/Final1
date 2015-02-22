@@ -42,7 +42,13 @@ public class FileParser {
     }
 
     private static String stringCleanup(String line) {
-        String edit = line;
+        String edit;
+        String[] split = line.split("[(]");
+        edit = split[0];
+        for (int i = 1; i < split.length; i++) {
+            edit += " (" + split[i];
+        }
+
         while (edit.contains("  ")) {
             edit = edit.replace("  ", " ");
         }
@@ -59,25 +65,25 @@ public class FileParser {
         return edit;
     }
 
-    private static void parseLine(String[] line) {
+    private static Node[] makeNodes(String[] line) {
         Node node1;
         Node node2;
 
         if (line[1].startsWith("(")) {
-            int id = Integer.parseInt(line[1].substring(4, line[1].length() - 2));
+            int id = Integer.parseInt(line[1].substring(4, line[1].length() - 1));
             node1 = new Product(id, line[0]);
         } else {
             node1 = new Category(line[0]);
         }
 
         if (line[line.length - 1].startsWith("(")) {
-            int id = Integer.parseInt(line[line.length - 1].substring(4, line[line.length - 1].length() - 2));
+            int id = Integer.parseInt(line[line.length - 1].substring(4, line[line.length - 1].length() - 1));
             node2 = new Product(id, line[line.length - 2]);
         } else {
             node2 = new Category(line[line.length - 1]);
         }
 
-        if (node1.equals(node2)) return;
+        if (node1.equals(node2)) return null;
 
         boolean add1 = true;
         boolean add2 = true;
@@ -96,6 +102,18 @@ public class FileParser {
         if (add1) nodes.add(node1);
         if (add2) nodes.add(node2);
 
+        Node[] out = new Node[2];
+        out[0] = node1;
+        out[1] = node2;
+
+        return out;
+    }
+
+    private static void parseLine(String[] line) {
+        Node[] nodes = makeNodes(line);
+        if (nodes == null) return;
+        Node node1 = nodes[0];
+        Node node2 = nodes[1];
         String command = line[2];
         if (node1.isCategory()) command = line[1];
 

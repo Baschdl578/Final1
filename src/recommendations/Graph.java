@@ -11,9 +11,16 @@ import recommendations.nodes.Node;
 public class Graph {
     private Node root;
 
-
+    /**
+     * Constructor
+     * @param root Root of the graph
+     */
     public Graph(Node root) {
         this.root = root;
+    }
+
+    public Node getRoot() {
+        return root;
     }
 
 }

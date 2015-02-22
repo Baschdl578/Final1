@@ -13,7 +13,13 @@ public abstract class Node {
     private String name;
     private LinkedList<Category> containedIn = new LinkedList<Category>();
 
-
+    /**
+     * Setter for parents
+     * @param containedIn new parents
+     */
+    public void setContainedIn(LinkedList<Category> containedIn) {
+        this.containedIn = containedIn;
+    }
 
     /**
      * returns whether the Node is a category

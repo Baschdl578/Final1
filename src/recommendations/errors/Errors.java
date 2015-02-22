@@ -18,7 +18,7 @@ public class Errors {
      * Constructor
      */
     public Errors() {
-        Locale local = new Locale(new Properties().getProperty("local"));
+        Locale local = Locale.getDefault();
         try {
             resourceBundle = ResourceBundle.getBundle("recommendations.errors.messages", local);
         } catch (MissingResourceException e) {
