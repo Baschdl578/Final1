@@ -57,7 +57,7 @@ public class FileParser {
         edit = edit.replace(" =", "=");
         edit = edit.replace("= ", "=");
         while (edit.endsWith(" ")) {
-            edit = edit.substring(0, edit.length() - 2);
+            edit = edit.substring(0, edit.length() - 1);
         }
         while (edit.startsWith(" ")) {
             edit = edit.substring(1);

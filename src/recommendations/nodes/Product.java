@@ -28,7 +28,7 @@ public class Product extends Node {
      */
     public Product(int id, String name) {
         if (id < 0) {
-            Terminal.printLine(Main.getErrors().getString("Node.1"));
+            Terminal.printLine("Error, " + Main.getErrors().getString("Node.1"));
         }
         this.setName(name);
         this.id = id;
